@@ -35,23 +35,26 @@ class Number_guesser:
     
     
     
-    def __init__(self, guessed_num, num_hints = 3 ,num_guesses = 4 ):
-        self.comp_result = random.randint(1, 10)
+    def __init__(self, num_hints = 3 ,num_guesses = 4 ):
+        self.comp_result = int(random.randint(1, 10))
         self.num_hints = num_hints
         self.num_guesses = num_guesses
-        self.guessed_num =guessed_num
         self.hint_list =[self.__get_parity(),self.__get_factors(),self.__get_multiples(),self.__get_larger(),self.__get_smaller()]
+        self.chatBot()
         
-    def play(self):
-       
-        while (self.guessed_num != self.comp_result) and self.num_guesses>1:
-            print("wrong! here are hints ")
+    def chatBot(self):
+        input_num = int(input("Hello! guess a number between 1 to 10 , you have 4 guesses to make:"))
+        
+        if self.comp_result == input_num:
+            return print("you won")
             
+        while (input_num != self.comp_result) and self.num_guesses>1:
+            print("wrong! here are 3 hints ")
             self.give_hints()
-            self.guessed_num  = input("Hello! guess a number again:")
+            input_num  = int(input("Hello! guess a number again:"))
             self.num_guesses -=1
 
-            if self.guessed_num == self.comp_result:
+            if self.comp_result == input_num:
                 return print("you won")
             if self.num_guesses<=1:
                 return print("you lost")
@@ -59,7 +62,7 @@ class Number_guesser:
         
     def give_hints(self):
         
-        hints = random.choices(self.hint_list, k=3)
+        hints = random.sample(self.hint_list, k=3)
         for hint in hints:
             print(hint)
     
@@ -110,7 +113,7 @@ class Number_guesser:
 
 
    
-input_num = input("Hello! guess a number, you have 4 guesses to make:")
 
-guess1 = Number_guesser(input_num)
-guess1.play()
+
+guess1 = Number_guesser()
+
