@@ -42,7 +42,6 @@ class Number_guesser:
       
         self.input_num = int(input("Hello! guess a number between 1 to 10 , you have 4 guesses to make:"))
         
-        print(self.comp_result)
         if self.comp_result == self.input_num:
             return print("you won")
             
