@@ -39,29 +39,27 @@ class Number_guesser:
         self.comp_result = int(random.randint(1, 10))
         self.num_hints = num_hints
         self.num_guesses = num_guesses
-        self.hint_list =[self.__get_parity(),self.__get_factors(),self.__get_multiples(),self.__get_larger(),self.__get_smaller()]
-        self.chatBot()
+      
+        self.input_num = int(input("Hello! guess a number between 1 to 10 , you have 4 guesses to make:"))
         
-    def chatBot(self):
-        input_num = int(input("Hello! guess a number between 1 to 10 , you have 4 guesses to make:"))
-        
-        if self.comp_result == input_num:
+        print(self.comp_result)
+        if self.comp_result == self.input_num:
             return print("you won")
             
-        while (input_num != self.comp_result) and self.num_guesses>1:
+        while (self.input_num != self.comp_result) and self.num_guesses>1:
             print("wrong! here are 3 hints ")
             self.give_hints()
-            input_num  = int(input("Hello! guess a number again:"))
+            self.input_num  = int(input("Hello! guess a number again:"))
             self.num_guesses -=1
 
-            if self.comp_result == input_num:
+            if self.comp_result == self.input_num:
                 return print("you won")
             if self.num_guesses<=1:
                 return print("you lost")
             
         
     def give_hints(self):
-        
+        self.hint_list =[self.__get_parity(),self.__get_factors(),self.__get_multiples(),self.__get_larger(),self.__get_smaller()]
         hints = random.sample(self.hint_list, k=3)
         for hint in hints:
             print(hint)
@@ -75,9 +73,9 @@ class Number_guesser:
     
     def __get_parity(self):
         if self.comp_result%2 == 0:
-            return "even"
+            return "number is even"
         else:
-            return "odd"
+            return "number is odd"
         
     #factors
     def __get_factors(self):
@@ -103,12 +101,18 @@ class Number_guesser:
         
     #larger
     def __get_larger(self):
-        return "larger"
+        if self.comp_result > self.input_num :
+            return "Number is larger than selected number"
+        else:
+            self.__get_smaller()
         
     
     #smaller
     def __get_smaller(self):
-        return "smaller"
+        if self.comp_result < self.input_num :
+            return "Number is smaller than selected number"
+        else:
+            self.__get_larger()
         
 
 
